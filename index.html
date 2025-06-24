@@ -1,29 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name — Blog & Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <header>
-    <h1>Welcome to My Portfolio</h1>
+<body class="bg-gray-900 text-white font-sans leading-relaxed tracking-wide">
+
+  <!-- NAV -->
+  <header class="p-6 flex justify-between items-center border-b border-gray-700">
+    <h1 class="text-2xl font-bold">yourname.dev</h1>
+    <nav class="space-x-4">
+      <a href="index.html" class="hover:text-indigo-400">Home</a>
+      <a href="portfolio.html" class="hover:text-indigo-400">Portfolio</a>
+      <a href="about.html" class="hover:text-indigo-400">About</a>
+    </nav>
   </header>
-  <section>
-    <h2>About Me</h2>
-    <p>Hello! I’m [Your Name], a [Your Role/Field]. This is my portfolio where I showcase my projects and skills.</p>
+
+  <!-- HERO -->
+  <section class="text-center py-16 px-6">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Hi, I'm Your Name 👋</h2>
+    <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+      I'm a developer, writer, and creator. I love sharing what I learn through clean code, fun experiments, and deep blog posts.
+    </p>
   </section>
-  <section>
-    <h2>Projects</h2>
-    <ul>
-      <li><a href="[link-to-project]">Project 1</a></li>
-      <li><a href="[link-to-project]">Project 2</a></li>
-      <li><a href="[link-to-project]">Project 3</a></li>
-    </ul>
+
+  <!-- BLOG SECTION -->
+  <section class="px-6 py-12 border-t border-gray-700">
+    <h3 class="text-2xl font-semibold mb-6">📝 Latest Posts</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <a href="posts/my-first-post.html" class="bg-gray-800 p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h4 class="text-xl font-bold mb-2">My First Post</h4>
+        <p class="text-gray-400">An intro to my journey — why I started this blog, and what you can expect here.</p>
+        <span class="text-indigo-400 text-sm mt-2 inline-block">Read more →</span>
+      </a>
+      <!-- Add more posts like above -->
+    </div>
   </section>
-  <footer>
-    <p>Contact me at: <a href="mailto:[your-email]">[your-email]</a></p>
+
+  <!-- PORTFOLIO SECTION -->
+  <section class="px-6 py-12 border-t border-gray-700">
+    <h3 class="text-2xl font-semibold mb-6">🎨 Featured Work</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-gray-800 p-6 rounded-xl shadow">
+        <h4 class="text-xl font-bold mb-2">Cool Game Project</h4>
+        <p class="text-gray-400">A first-person puzzle game using Unreal Engine 5.</p>
+        <a href="portfolio.html" class="text-indigo-400 text-sm mt-2 inline-block">View portfolio →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="text-center py-8 border-t border-gray-700 text-gray-500 text-sm">
+    &copy; 2025 Your Name. Built with 🖤 and Tailwind.
   </footer>
+
 </body>
 </html>

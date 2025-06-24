@@ -1,0 +1,53 @@
+/* ==== General ==== */
+body {
+  scroll-behavior: smooth;
+}
+
+/* ==== Custom Fonts (optional) ==== */
+/* Example: Importing Inter font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* ==== Scrollbar Styling ==== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #1f2937; /* Tailwind's gray-800 */
+}
+::-webkit-scrollbar-thumb {
+  background: #4b5563; /* gray-600 */
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6b7280; /* gray-500 */
+}
+
+/* ==== Custom Utility Overrides (Optional) ==== */
+.shadow-strong {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==== Link Hover Effect ==== */
+a:hover {
+  text-decoration: underline;
+}
+
+/* ==== Smooth Fade In (for future use) ==== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transf
