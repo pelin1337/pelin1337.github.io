@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog | pelin1337</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Technical blog by Pelin Avsar covering AI, machine learning, game development, and trading algorithms.">
+    <meta name="keywords" content="AI blog, machine learning tutorials, game development, trading algorithms, tech blog">
+    <meta name="author" content="Pelin Avsar">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+
+    <!-- Tailwind Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'neon-pink': '#ff006e',
+              'neon-cyan': '#00f5ff',
+              'neon-purple': '#b026ff',
+              'electric-blue': '#00b4d8',
+              'toxic-green': '#39ff14',
+              'cyber-black': '#0a0a0f',
+              'cyber-navy': '#0c0f1f',
+            },
+            fontFamily: {
+              'orbitron': ['Orbitron', 'sans-serif'],
+              'rajdhani': ['Rajdhani', 'sans-serif'],
+              'space': ['Space Grotesk', 'sans-serif'],
+              'mono': ['Share Tech Mono', 'monospace'],
+            },
+          }
+        }
+      }
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+      body {
+        font-family: 'Space Grotesk', sans-serif;
+        background: #0a0a0f;
+      }
+
+      /* Neon text glow */
+      .neon-text {
+        text-shadow:
+          0 0 10px rgba(0, 245, 255, 0.8),
+          0 0 20px rgba(0, 245, 255, 0.6),
+          0 0 30px rgba(0, 245, 255, 0.4);
+      }
+
+      .neon-text-pink {
+        text-shadow:
+          0 0 10px rgba(255, 0, 110, 0.8),
+          0 0 20px rgba(255, 0, 110, 0.6),
+          0 0 30px rgba(255, 0, 110, 0.4);
+      }
+
+      /* Neon borders */
+      .neon-border {
+        border: 2px solid #00f5ff;
+        box-shadow:
+          0 0 10px rgba(0, 245, 255, 0.6),
+          0 0 20px rgba(0, 245, 255, 0.4),
+          inset 0 0 10px rgba(0, 245, 255, 0.2);
+      }
+
+      .neon-border-pink {
+        border: 2px solid #ff006e;
+        box-shadow:
+          0 0 10px rgba(255, 0, 110, 0.6),
+          0 0 20px rgba(255, 0, 110, 0.4),
+          inset 0 0 10px rgba(255, 0, 110, 0.2);
+      }
+
+      .neon-border-purple {
+        border: 2px solid #b026ff;
+        box-shadow:
+          0 0 10px rgba(176, 38, 255, 0.6),
+          0 0 20px rgba(176, 38, 255, 0.4),
+          inset 0 0 10px rgba(176, 38, 255, 0.2);
+      }
+
+      /* Grid backgrounds */
+      .cyber-grid {
+        background-image:
+          linear-gradient(rgba(0, 245, 255, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 245, 255, 0.1) 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+
+      /* Focus states for accessibility */
+      a:focus, button:focus {
+        outline: 2px solid #00f5ff;
+        outline-offset: 4px;
+      }
+
+      /* Tag hover effect */
+      .tag-filter {
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .tag-filter:hover {
+        transform: scale(1.05);
+      }
+
+      .tag-filter.active {
+        background: rgba(0, 245, 255, 0.2);
+      }
+    </style>
+  </head>
+
+  <body class="bg-cyber-black text-white antialiased">
+
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-cyan-500/30">
+      <nav class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+        <a href="../index.html" class="text-3xl font-bold neon-text font-orbitron">
+          pelin<span class="text-pink-500">1337</span>
+        </a>
+        <div class="hidden md:flex space-x-8 font-rajdhani">
+          <a href="../index.html#about" class="text-gray-300 hover:text-cyan-400 transition">About</a>
+          <a href="../index.html#projects" class="text-gray-300 hover:text-cyan-400 transition">Projects</a>
+          <a href="../index.html#experience" class="text-gray-300 hover:text-cyan-400 transition">Experience</a>
+          <a href="../index.html#skills" class="text-gray-300 hover:text-cyan-400 transition">Skills</a>
+          <a href="index.html" class="text-cyan-400 font-semibold">Blog</a>
+          <a href="../index.html#contact" class="text-gray-300 hover:text-cyan-400 transition">Contact</a>
+        </div>
+        <a href="../index.html" class="md:hidden text-cyan-400" aria-label="Back to home">
+          <i data-lucide="home" class="w-6 h-6"></i>
+        </a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-6 cyber-grid bg-cyber-black">
+      <div class="max-w-5xl mx-auto text-center" data-aos="fade-up">
+        <h1 class="text-6xl md:text-8xl font-black mb-6 neon-text-pink font-orbitron">
+          BLOG
+        </h1>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+          Thoughts on AI, game development, trading algorithms, and the intersection of technology and creativity.
+        </p>
+
+        <!-- Tag filters -->
+        <div class="flex flex-wrap gap-3 justify-center">
+          <button class="tag-filter px-4 py-2 border border-cyan-500/50 rounded-full text-cyan-400 text-sm font-rajdhani active" data-tag="all">
+            All Posts
+          </button>
+          <button class="tag-filter px-4 py-2 border border-pink-500/50 rounded-full text-pink-400 text-sm font-rajdhani" data-tag="ai">
+            AI/ML
+          </button>
+          <button class="tag-filter px-4 py-2 border border-purple-500/50 rounded-full text-purple-400 text-sm font-rajdhani" data-tag="games">
+            Games
+          </button>
+          <button class="tag-filter px-4 py-2 border border-cyan-500/50 rounded-full text-cyan-400 text-sm font-rajdhani" data-tag="trading">
+            Trading
+          </button>
+          <button class="tag-filter px-4 py-2 border border-pink-500/50 rounded-full text-pink-400 text-sm font-rajdhani" data-tag="tutorial">
+            Tutorials
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Posts Grid -->
+    <section class="py-16 px-6 bg-[#0d0d12]">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-posts">
+
+          <!-- Blog Post 1 -->
+          <article class="blog-post neon-border-pink rounded-xl overflow-hidden bg-black/60 hover:-translate-y-2 transition-all duration-300" data-tags="ai games" data-aos="fade-up">
+            <div class="h-48 bg-gradient-to-br from-cyan-500/20 to-pink-500/20 flex items-center justify-center">
+              <i data-lucide="brain-circuit" class="w-16 h-16 text-pink-400"></i>
+            </div>
+
+            <div class="p-6">
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs text-cyan-400 font-mono">Jan 4, 2026</span>
+                <span class="text-xs text-gray-500">•</span>
+                <span class="text-xs text-purple-400">AI</span>
+              </div>
+
+              <h3 class="text-xl font-bold text-white mb-3 font-orbitron">
+                The Future of Game AI
+              </h3>
+
+              <p class="text-gray-400 text-sm mb-4">
+                Exploring how modern AI techniques are revolutionizing NPC behavior and procedural content generation in video games. From behavior trees to neural networks.
+              </p>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="px-2 py-1 text-xs border border-cyan-500/30 rounded text-cyan-400">AI/ML</span>
+                <span class="px-2 py-1 text-xs border border-pink-500/30 rounded text-pink-400">Games</span>
+              </div>
+
+              <a href="first-post.html" class="text-pink-400 hover:text-pink-300 flex items-center gap-2 font-rajdhani font-semibold">
+                Read More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- Blog Post 2 -->
+          <article class="blog-post neon-border rounded-xl overflow-hidden bg-black/60 hover:-translate-y-2 transition-all duration-300" data-tags="trading ai" data-aos="fade-up" data-aos-delay="100">
+            <div class="h-48 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 flex items-center justify-center">
+              <i data-lucide="trending-up" class="w-16 h-16 text-cyan-400"></i>
+            </div>
+
+            <div class="p-6">
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs text-cyan-400 font-mono">Coming Soon</span>
+                <span class="text-xs text-gray-500">•</span>
+                <span class="text-xs text-purple-400">Trading</span>
+              </div>
+
+              <h3 class="text-xl font-bold text-white mb-3 font-orbitron">
+                ML in Algorithmic Trading
+              </h3>
+
+              <p class="text-gray-400 text-sm mb-4">
+                Deep dive into using reinforcement learning for building intelligent trading bots that adapt to market conditions. Learn about Q-learning, policy gradients, and more.
+              </p>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="px-2 py-1 text-xs border border-cyan-500/30 rounded text-cyan-400">Trading</span>
+                <span class="px-2 py-1 text-xs border border-pink-500/30 rounded text-pink-400">AI/ML</span>
+              </div>
+
+              <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center gap-2 font-rajdhani font-semibold">
+                Coming Soon <i data-lucide="clock" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- Blog Post 3 -->
+          <article class="blog-post neon-border-purple rounded-xl overflow-hidden bg-black/60 hover:-translate-y-2 transition-all duration-300" data-tags="games tutorial" data-aos="fade-up" data-aos-delay="200">
+            <div class="h-48 bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center">
+              <i data-lucide="code-2" class="w-16 h-16 text-purple-400"></i>
+            </div>
+
+            <div class="p-6">
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs text-cyan-400 font-mono">Coming Soon</span>
+                <span class="text-xs text-gray-500">•</span>
+                <span class="text-xs text-purple-400">Tutorial</span>
+              </div>
+
+              <h3 class="text-xl font-bold text-white mb-3 font-orbitron">
+                Building with Unreal Engine 5
+              </h3>
+
+              <p class="text-gray-400 text-sm mb-4">
+                A beginner's guide to getting started with UE5, from basic blueprints to advanced C++ gameplay programming. Master the fundamentals and build your first game.
+              </p>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="px-2 py-1 text-xs border border-cyan-500/30 rounded text-cyan-400">Games</span>
+                <span class="px-2 py-1 text-xs border border-purple-500/30 rounded text-purple-400">Tutorial</span>
+              </div>
+
+              <a href="#" class="text-purple-400 hover:text-purple-300 flex items-center gap-2 font-rajdhani font-semibold">
+                Coming Soon <i data-lucide="clock" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- Blog Post 4 (placeholder) -->
+          <article class="blog-post neon-border rounded-xl overflow-hidden bg-black/60 hover:-translate-y-2 transition-all duration-300" data-tags="ai tutorial" data-aos="fade-up" data-aos-delay="300">
+            <div class="h-48 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
+              <i data-lucide="network" class="w-16 h-16 text-cyan-400"></i>
+            </div>
+
+            <div class="p-6">
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs text-cyan-400 font-mono">Coming Soon</span>
+                <span class="text-xs text-gray-500">•</span>
+                <span class="text-xs text-purple-400">AI</span>
+              </div>
+
+              <h3 class="text-xl font-bold text-white mb-3 font-orbitron">
+                Neural Networks from Scratch
+              </h3>
+
+              <p class="text-gray-400 text-sm mb-4">
+                Build a neural network from first principles using only NumPy. Understand backpropagation, gradient descent, and activation functions at a fundamental level.
+              </p>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="px-2 py-1 text-xs border border-cyan-500/30 rounded text-cyan-400">AI/ML</span>
+                <span class="px-2 py-1 text-xs border border-purple-500/30 rounded text-purple-400">Tutorial</span>
+              </div>
+
+              <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center gap-2 font-rajdhani font-semibold">
+                Coming Soon <i data-lucide="clock" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- Blog Post 5 (placeholder) -->
+          <article class="blog-post neon-border-pink rounded-xl overflow-hidden bg-black/60 hover:-translate-y-2 transition-all duration-300" data-tags="games ai" data-aos="fade-up" data-aos-delay="400">
+            <div class="h-48 bg-gradient-to-br from-pink-500/20 to-cyan-500/20 flex items-center justify-center">
+              <i data-lucide="cpu" class="w-16 h-16 text-pink-400"></i>
+            </div>
+
+            <div class="p-6">
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs text-cyan-400 font-mono">Coming Soon</span>
+                <span class="text-xs text-gray-500">•</span>
+                <span class="text-xs text-purple-400">Games</span>
+              </div>
+
+              <h3 class="text-xl font-bold text-white mb-3 font-orbitron">
+                Procedural Generation Techniques
+              </h3>
+
+              <p class="text-gray-400 text-sm mb-4">
+                Explore advanced procedural generation techniques for creating infinite, unique game worlds. From Perlin noise to Wave Function Collapse algorithms.
+              </p>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="px-2 py-1 text-xs border border-cyan-500/30 rounded text-cyan-400">Games</span>
+                <span class="px-2 py-1 text-xs border border-pink-500/30 rounded text-pink-400">AI/ML</span>
+              </div>
+
+              <a href="#" class="text-pink-400 hover:text-pink-300 flex items-center gap-2 font-rajdhani font-semibold">
+                Coming Soon <i data-lucide="clock" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- Blog Post 6 (placeholder) -->
+          <article class="blog-post neon-border-purple rounded-xl overflow-hidden bg-black/60 hover:-translate-y-2 transition-all duration-300" data-tags="trading" data-aos="fade-up" data-aos-delay="500">
+            <div class="h-48 bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+              <i data-lucide="bar-chart-3" class="w-16 h-16 text-purple-400"></i>
+            </div>
+
+            <div class="p-6">
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs text-cyan-400 font-mono">Coming Soon</span>
+                <span class="text-xs text-gray-500">•</span>
+                <span class="text-xs text-purple-400">Trading</span>
+              </div>
+
+              <h3 class="text-xl font-bold text-white mb-3 font-orbitron">
+                Quantitative Trading Strategies
+              </h3>
+
+              <p class="text-gray-400 text-sm mb-4">
+                An introduction to quantitative trading strategies, including momentum, mean reversion, and statistical arbitrage. Learn to backtest and optimize your strategies.
+              </p>
+
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span class="px-2 py-1 text-xs border border-cyan-500/30 rounded text-cyan-400">Trading</span>
+              </div>
+
+              <a href="#" class="text-purple-400 hover:text-purple-300 flex items-center gap-2 font-rajdhani font-semibold">
+                Coming Soon <i data-lucide="clock" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-cyan-500/30 py-12 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-8 mb-8">
+          <!-- Column 1: Brand -->
+          <div>
+            <h3 class="text-2xl font-bold neon-text mb-3 font-orbitron">
+              pelin<span class="text-pink-500">1337</span>
+            </h3>
+            <p class="text-gray-400 text-sm">
+              Software Engineer • AI Enthusiast • Game Developer
+            </p>
+          </div>
+
+          <!-- Column 2: Quick Links -->
+          <div>
+            <h4 class="text-cyan-400 font-bold mb-3 font-rajdhani">Quick Links</h4>
+            <ul class="space-y-2 text-gray-400 text-sm">
+              <li><a href="../index.html#about" class="hover:text-cyan-400 transition">About</a></li>
+              <li><a href="../index.html#projects" class="hover:text-cyan-400 transition">Projects</a></li>
+              <li><a href="../index.html#experience" class="hover:text-cyan-400 transition">Experience</a></li>
+              <li><a href="../index.html#skills" class="hover:text-cyan-400 transition">Skills</a></li>
+              <li><a href="index.html" class="hover:text-cyan-400 transition">Blog</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Social -->
+          <div>
+            <h4 class="text-pink-400 font-bold mb-3 font-rajdhani">Connect</h4>
+            <div class="flex gap-4">
+              <a href="mailto:pelinavsar98@gmail.com" class="text-gray-400 hover:text-cyan-400 transition" aria-label="Email">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </a>
+              <a href="https://github.com/pelin1337" target="_blank" class="text-gray-400 hover:text-pink-400 transition" aria-label="GitHub">
+                <i data-lucide="github" class="w-6 h-6"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/pelin-avsar-201369146/" target="_blank" class="text-gray-400 hover:text-purple-400 transition" aria-label="LinkedIn">
+                <i data-lucide="linkedin" class="w-6 h-6"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="border-t border-cyan-500/20 pt-8 text-center">
+          <p class="text-gray-500 text-sm font-mono">
+            &copy; 2026 pelin1337. Built with insomnia, caffeine & Tailwind CSS.
+            <span class="text-cyan-400">[ CYBERPUNK MODE ACTIVATED ]</span>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      // Initialize AOS (Animate On Scroll)
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
+
+      // Tag filtering functionality
+      const tagFilters = document.querySelectorAll('.tag-filter');
+      const blogPosts = document.querySelectorAll('.blog-post');
+
+      tagFilters.forEach(filter => {
+        filter.addEventListener('click', function() {
+          const selectedTag = this.getAttribute('data-tag');
+
+          // Update active state
+          tagFilters.forEach(f => f.classList.remove('active'));
+          this.classList.add('active');
+
+          // Filter posts
+          blogPosts.forEach(post => {
+            const postTags = post.getAttribute('data-tags');
+
+            if (selectedTag === 'all') {
+              post.style.display = 'block';
+            } else {
+              if (postTags.includes(selectedTag)) {
+                post.style.display = 'block';
+              } else {
+                post.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
