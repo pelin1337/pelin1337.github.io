@@ -32,11 +32,284 @@
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Google Sans Code', monospace;
+      font-family: 'JetBrains Mono', monospace;
       background: #000;
       color: #00ff41;
       overflow-x: hidden;
       cursor: none;
+    }
+
+    /* Boot sequence overlay */
+    .boot-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.5s, visibility 0.5s;
+    }
+
+    .boot-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .boot-text {
+      font-size: 14px;
+      color: #00ff41;
+      text-align: left;
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    .boot-text .line {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .boot-text .line.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.3s ease;
+    }
+
+    .boot-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 18px;
+      background: #00ff41;
+      animation: blink 0.8s step-end infinite;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+
+    /* Matrix rain canvas */
+    #matrix-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15;
+    }
+
+    /* Command palette */
+    .command-palette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 10000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 20vh;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+
+    .command-palette.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .command-palette-box {
+      background: rgba(0, 20, 0, 0.95);
+      border: 1px solid #00ff41;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 60px rgba(0, 255, 65, 0.3);
+      overflow: hidden;
+      transform: translateY(-20px) scale(0.95);
+      transition: transform 0.2s ease;
+    }
+
+    .command-palette.open .command-palette-box {
+      transform: translateY(0) scale(1);
+    }
+
+    .command-input {
+      width: 100%;
+      padding: 16px 20px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+      color: #00ff41;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .command-input::placeholder {
+      color: rgba(0, 255, 65, 0.4);
+    }
+
+    .command-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .command-item {
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .command-item:hover, .command-item.selected {
+      background: rgba(0, 255, 65, 0.1);
+    }
+
+    .command-item .icon {
+      width: 20px;
+      height: 20px;
+      opacity: 0.6;
+    }
+
+    .command-item .label {
+      color: #fff;
+      flex: 1;
+    }
+
+    .command-item .shortcut {
+      color: rgba(0, 255, 65, 0.5);
+      font-size: 12px;
+    }
+
+    /* Scroll progress snake */
+    .scroll-snake {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 200px;
+      background: rgba(0, 255, 65, 0.1);
+      border-radius: 2px;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .scroll-snake-progress {
+      width: 100%;
+      background: linear-gradient(180deg, #7e22ce, #00ff41);
+      border-radius: 2px;
+      transition: height 0.1s ease-out;
+      position: relative;
+    }
+
+    .scroll-snake-head {
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background: #00ff41;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00ff41;
+    }
+
+    .scroll-snake-head::before,
+    .scroll-snake-head::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      width: 3px;
+      height: 3px;
+      background: #000;
+      border-radius: 50%;
+    }
+
+    .scroll-snake-head::before { left: 2px; }
+    .scroll-snake-head::after { right: 2px; }
+
+    /* Cursor trail */
+    .cursor-trail {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      width: 8px;
+      height: 8px;
+      background: #00ff41;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    /* Noise overlay for texture */
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* CRT flicker effect */
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      92% { opacity: 1; }
+      93% { opacity: 0.8; }
+      94% { opacity: 1; }
+      97% { opacity: 0.9; }
+    }
+
+    .terminal {
+      animation: flicker 8s infinite;
+    }
+
+    /* Magnetic hover effect for nav links */
+    .magnetic {
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* Enhanced glow on hover */
+    .project-card:hover {
+      box-shadow:
+        0 0 30px rgba(0, 255, 65, 0.2),
+        0 0 60px rgba(0, 255, 65, 0.1),
+        inset 0 0 30px rgba(0, 255, 65, 0.05);
+    }
+
+    /* Purple accent on special elements */
+    .accent-purple {
+      color: #7e22ce;
+      text-shadow: 0 0 20px rgba(126, 34, 206, 0.5);
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Mobile hide scroll snake */
+    @media (max-width: 768px) {
+      .scroll-snake { display: none; }
+      .command-palette-box { width: 95%; }
     }
 
     /* Custom cursor */
@@ -331,6 +604,87 @@
 </head>
 
 <body class="scanlines">
+  <!-- Boot sequence -->
+  <div class="boot-screen" id="boot-screen">
+    <div class="boot-text" id="boot-text">
+      <div class="line">[<span class="accent-purple">BIOS</span>] Initializing system...</div>
+      <div class="line">[<span class="accent-purple">CPU</span>] Neural cores: <span class="text-matrix">ONLINE</span></div>
+      <div class="line">[<span class="accent-purple">MEM</span>] Loading creativity.dll... <span class="text-matrix">OK</span></div>
+      <div class="line">[<span class="accent-purple">GPU</span>] Rendering pipeline: <span class="text-matrix">READY</span></div>
+      <div class="line">[<span class="accent-purple">NET</span>] Connecting to the matrix...</div>
+      <div class="line">[<span class="accent-purple">SYS</span>] Welcome, visitor.<span class="boot-cursor"></span></div>
+    </div>
+  </div>
+
+  <!-- Matrix rain background -->
+  <canvas id="matrix-rain"></canvas>
+
+  <!-- Noise overlay -->
+  <div class="noise"></div>
+
+  <!-- Cursor trail elements -->
+  <div class="cursor-trail" id="trail-1"></div>
+  <div class="cursor-trail" id="trail-2"></div>
+  <div class="cursor-trail" id="trail-3"></div>
+  <div class="cursor-trail" id="trail-4"></div>
+  <div class="cursor-trail" id="trail-5"></div>
+
+  <!-- Scroll progress snake -->
+  <div class="scroll-snake">
+    <div class="scroll-snake-progress" id="scroll-progress">
+      <div class="scroll-snake-head"></div>
+    </div>
+  </div>
+
+  <!-- Command palette -->
+  <div class="command-palette" id="command-palette">
+    <div class="command-palette-box">
+      <input type="text" class="command-input" id="command-input" placeholder="Type a command or search..." autocomplete="off">
+      <div class="command-list" id="command-list">
+        <div class="command-item" data-action="about">
+          <i data-lucide="user" class="icon"></i>
+          <span class="label">Go to About</span>
+          <span class="shortcut">↵</span>
+        </div>
+        <div class="command-item" data-action="work">
+          <i data-lucide="folder" class="icon"></i>
+          <span class="label">Go to Work</span>
+          <span class="shortcut">↵</span>
+        </div>
+        <div class="command-item" data-action="skills">
+          <i data-lucide="code" class="icon"></i>
+          <span class="label">Go to Skills</span>
+          <span class="shortcut">↵</span>
+        </div>
+        <div class="command-item" data-action="blog">
+          <i data-lucide="book-open" class="icon"></i>
+          <span class="label">Go to Blog</span>
+          <span class="shortcut">↵</span>
+        </div>
+        <div class="command-item" data-action="contact">
+          <i data-lucide="mail" class="icon"></i>
+          <span class="label">Go to Contact</span>
+          <span class="shortcut">↵</span>
+        </div>
+        <div class="command-item" data-action="github">
+          <i data-lucide="github" class="icon"></i>
+          <span class="label">Open GitHub</span>
+          <span class="shortcut">↵</span>
+        </div>
+        <div class="command-item" data-action="linkedin">
+          <i data-lucide="linkedin" class="icon"></i>
+          <span class="label">Open LinkedIn</span>
+          <span class="shortcut">↵</span>
+        </div>
+        <div class="command-item" data-action="email">
+          <i data-lucide="send" class="icon"></i>
+          <span class="label">Send Email</span>
+          <span class="shortcut">↵</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Custom cursor -->
   <div class="cursor"></div>
   <div class="cursor-dot"></div>
@@ -357,12 +711,16 @@
           <path d="M 70 28 L 74 26 M 70 28 L 74 30" stroke="#7e22ce" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </a>
-      <div class="hidden md:flex gap-8 text-sm">
-        <a href="#about" class="hover-line text-white/60 hover:text-matrix transition-colors" data-cursor="hover">about</a>
-        <a href="#work" class="hover-line text-white/60 hover:text-matrix transition-colors" data-cursor="hover">work</a>
-        <a href="#skills" class="hover-line text-white/60 hover:text-matrix transition-colors" data-cursor="hover">skills</a>
-        <a href="#blog" class="hover-line text-white/60 hover:text-matrix transition-colors" data-cursor="hover">blog</a>
-        <a href="#contact" class="hover-line text-white/60 hover:text-matrix transition-colors" data-cursor="hover">contact</a>
+      <div class="hidden md:flex gap-8 text-sm items-center">
+        <a href="#about" class="hover-line text-white/60 hover:text-matrix transition-colors magnetic" data-cursor="hover">about</a>
+        <a href="#work" class="hover-line text-white/60 hover:text-matrix transition-colors magnetic" data-cursor="hover">work</a>
+        <a href="#skills" class="hover-line text-white/60 hover:text-matrix transition-colors magnetic" data-cursor="hover">skills</a>
+        <a href="#blog" class="hover-line text-white/60 hover:text-matrix transition-colors magnetic" data-cursor="hover">blog</a>
+        <a href="#contact" class="hover-line text-white/60 hover:text-matrix transition-colors magnetic" data-cursor="hover">contact</a>
+        <button id="cmd-trigger" class="flex items-center gap-2 px-3 py-1.5 rounded border border-matrix/30 text-white/40 hover:text-matrix hover:border-matrix/60 transition-all text-xs" data-cursor="hover">
+          <span>search</span>
+          <kbd class="px-1.5 py-0.5 rounded bg-matrix/10 text-matrix/60">⌘K</kbd>
+        </button>
       </div>
     </div>
   </nav>
@@ -708,14 +1066,93 @@
   </footer>
 
   <script>
-    // Initialize Lucide icons
+    // ═══════════════════════════════════════════════════════════════
+    // BOOT SEQUENCE
+    // ═══════════════════════════════════════════════════════════════
+    const bootScreen = document.getElementById('boot-screen');
+    const bootLines = document.querySelectorAll('.boot-text .line');
+
+    // Check if already visited in this session
+    const hasBooted = sessionStorage.getItem('hasBooted');
+
+    if (hasBooted) {
+      bootScreen.classList.add('hidden');
+    } else {
+      bootLines.forEach((line, i) => {
+        setTimeout(() => {
+          line.classList.add('visible');
+        }, i * 400);
+      });
+
+      setTimeout(() => {
+        bootScreen.classList.add('hidden');
+        sessionStorage.setItem('hasBooted', 'true');
+      }, bootLines.length * 400 + 800);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // MATRIX RAIN
+    // ═══════════════════════════════════════════════════════════════
+    const canvas = document.getElementById('matrix-rain');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789∞';
+    const fontSize = 14;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#00ff41';
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        // Occasionally use purple
+        if (Math.random() > 0.98) {
+          ctx.fillStyle = '#7e22ce';
+        } else {
+          ctx.fillStyle = '#00ff41';
+        }
+
+        ctx.fillText(char, x, y);
+
+        if (y > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 50);
+
+    // ═══════════════════════════════════════════════════════════════
+    // INITIALIZE LUCIDE ICONS
+    // ═══════════════════════════════════════════════════════════════
     lucide.createIcons();
 
-    // Custom cursor
+    // ═══════════════════════════════════════════════════════════════
+    // CUSTOM CURSOR WITH TRAIL
+    // ═══════════════════════════════════════════════════════════════
     const cursor = document.querySelector('.cursor');
     const cursorDot = document.querySelector('.cursor-dot');
+    const trails = document.querySelectorAll('.cursor-trail');
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
+
+    const trailPositions = Array(trails.length).fill().map(() => ({ x: 0, y: 0 }));
 
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
@@ -724,12 +1161,28 @@
       cursorDot.style.top = mouseY - 2 + 'px';
     });
 
-    // Smooth cursor follow
     function animateCursor() {
       cursorX += (mouseX - cursorX) * 0.15;
       cursorY += (mouseY - cursorY) * 0.15;
       cursor.style.left = cursorX - 10 + 'px';
       cursor.style.top = cursorY - 10 + 'px';
+
+      // Animate trail
+      let prevX = cursorX, prevY = cursorY;
+      trails.forEach((trail, i) => {
+        const pos = trailPositions[i];
+        pos.x += (prevX - pos.x) * (0.3 - i * 0.04);
+        pos.y += (prevY - pos.y) * (0.3 - i * 0.04);
+
+        trail.style.left = pos.x - 4 + 'px';
+        trail.style.top = pos.y - 4 + 'px';
+        trail.style.opacity = 0.6 - i * 0.1;
+        trail.style.transform = `scale(${1 - i * 0.15})`;
+
+        prevX = pos.x;
+        prevY = pos.y;
+      });
+
       requestAnimationFrame(animateCursor);
     }
     animateCursor();
@@ -740,7 +1193,155 @@
       el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
 
-    // Scroll animations
+    // ═══════════════════════════════════════════════════════════════
+    // MAGNETIC NAV LINKS
+    // ═══════════════════════════════════════════════════════════════
+    document.querySelectorAll('.magnetic').forEach(el => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+      });
+
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = 'translate(0, 0)';
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    // SCROLL PROGRESS SNAKE
+    // ═══════════════════════════════════════════════════════════════
+    const scrollProgress = document.getElementById('scroll-progress');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      scrollProgress.style.height = scrollPercent + '%';
+    });
+
+    // ═══════════════════════════════════════════════════════════════
+    // COMMAND PALETTE
+    // ═══════════════════════════════════════════════════════════════
+    const commandPalette = document.getElementById('command-palette');
+    const commandInput = document.getElementById('command-input');
+    const commandList = document.getElementById('command-list');
+    const cmdTrigger = document.getElementById('cmd-trigger');
+    let selectedIndex = 0;
+
+    const actions = {
+      about: () => document.getElementById('about').scrollIntoView({ behavior: 'smooth' }),
+      work: () => document.getElementById('work').scrollIntoView({ behavior: 'smooth' }),
+      skills: () => document.getElementById('skills').scrollIntoView({ behavior: 'smooth' }),
+      blog: () => document.getElementById('blog').scrollIntoView({ behavior: 'smooth' }),
+      contact: () => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }),
+      github: () => window.open('https://github.com/pelin1337', '_blank'),
+      linkedin: () => window.open('https://www.linkedin.com/in/pelin-avsar-201369146/', '_blank'),
+      email: () => window.location.href = 'mailto:pelinavsar98@gmail.com'
+    };
+
+    function openCommandPalette() {
+      commandPalette.classList.add('open');
+      commandInput.value = '';
+      commandInput.focus();
+      filterCommands('');
+      selectedIndex = 0;
+      updateSelection();
+    }
+
+    function closeCommandPalette() {
+      commandPalette.classList.remove('open');
+    }
+
+    function filterCommands(query) {
+      const items = commandList.querySelectorAll('.command-item');
+      items.forEach(item => {
+        const label = item.querySelector('.label').textContent.toLowerCase();
+        item.style.display = label.includes(query.toLowerCase()) ? 'flex' : 'none';
+      });
+    }
+
+    function updateSelection() {
+      const visibleItems = [...commandList.querySelectorAll('.command-item')].filter(
+        item => item.style.display !== 'none'
+      );
+      visibleItems.forEach((item, i) => {
+        item.classList.toggle('selected', i === selectedIndex);
+      });
+    }
+
+    function executeSelected() {
+      const visibleItems = [...commandList.querySelectorAll('.command-item')].filter(
+        item => item.style.display !== 'none'
+      );
+      if (visibleItems[selectedIndex]) {
+        const action = visibleItems[selectedIndex].dataset.action;
+        actions[action]?.();
+        closeCommandPalette();
+      }
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Open with Cmd/Ctrl + K
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        commandPalette.classList.contains('open') ? closeCommandPalette() : openCommandPalette();
+      }
+
+      // Close with Escape
+      if (e.key === 'Escape') {
+        closeCommandPalette();
+      }
+
+      // Navigate with arrows
+      if (commandPalette.classList.contains('open')) {
+        const visibleItems = [...commandList.querySelectorAll('.command-item')].filter(
+          item => item.style.display !== 'none'
+        );
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          selectedIndex = (selectedIndex + 1) % visibleItems.length;
+          updateSelection();
+        }
+
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          selectedIndex = (selectedIndex - 1 + visibleItems.length) % visibleItems.length;
+          updateSelection();
+        }
+
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          executeSelected();
+        }
+      }
+    });
+
+    commandInput.addEventListener('input', (e) => {
+      filterCommands(e.target.value);
+      selectedIndex = 0;
+      updateSelection();
+    });
+
+    commandPalette.addEventListener('click', (e) => {
+      if (e.target === commandPalette) closeCommandPalette();
+    });
+
+    commandList.querySelectorAll('.command-item').forEach(item => {
+      item.addEventListener('click', () => {
+        actions[item.dataset.action]?.();
+        closeCommandPalette();
+      });
+    });
+
+    cmdTrigger?.addEventListener('click', openCommandPalette);
+
+    // ═══════════════════════════════════════════════════════════════
+    // SCROLL ANIMATIONS
+    // ═══════════════════════════════════════════════════════════════
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
@@ -758,12 +1359,14 @@
       observer.observe(el);
     });
 
-    // Trigger hero animations immediately
+    // Trigger hero animations after boot
     setTimeout(() => {
       document.getElementById('hero-text')?.classList.add('visible');
-    }, 500);
+    }, hasBooted ? 500 : bootLines.length * 400 + 1000);
 
-    // 3D tilt effect on project cards
+    // ═══════════════════════════════════════════════════════════════
+    // 3D TILT EFFECT ON PROJECT CARDS
+    // ═══════════════════════════════════════════════════════════════
     document.querySelectorAll('.project-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
@@ -782,24 +1385,59 @@
       });
     });
 
-    // Konami code easter egg
+    // ═══════════════════════════════════════════════════════════════
+    // KONAMI CODE EASTER EGG
+    // ═══════════════════════════════════════════════════════════════
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
     let konamiIndex = 0;
 
     document.addEventListener('keydown', (e) => {
+      if (commandPalette.classList.contains('open')) return;
+
       if (e.key === konamiCode[konamiIndex]) {
         konamiIndex++;
         if (konamiIndex === konamiCode.length) {
-          document.body.style.filter = 'hue-rotate(180deg)';
+          // Epic mode activated!
+          document.body.style.transition = 'filter 0.5s';
+          document.body.style.filter = 'hue-rotate(180deg) saturate(2)';
+          canvas.style.opacity = '0.4';
+
           setTimeout(() => {
             document.body.style.filter = '';
-          }, 3000);
+            canvas.style.opacity = '0.15';
+          }, 5000);
           konamiIndex = 0;
         }
       } else {
         konamiIndex = 0;
       }
     });
+
+    // ═══════════════════════════════════════════════════════════════
+    // TYPING EFFECT FOR TERMINAL
+    // ═══════════════════════════════════════════════════════════════
+    const terminalPrompt = document.querySelector('.terminal .text-sm.text-matrix-dim');
+    if (terminalPrompt) {
+      const text = terminalPrompt.textContent;
+      terminalPrompt.innerHTML = '<span class="text-white/60">~</span> <span id="typed-text"></span><span class="boot-cursor"></span>';
+      const typedText = document.getElementById('typed-text');
+
+      let i = 0;
+      const typeInterval = setInterval(() => {
+        if (i < 6) { // "whoami" length
+          typedText.textContent += 'whoami'[i];
+          i++;
+        } else {
+          clearInterval(typeInterval);
+          setTimeout(() => {
+            terminalPrompt.querySelector('.boot-cursor').style.display = 'none';
+          }, 500);
+        }
+      }, hasBooted ? 100 : 150);
+    }
+
+    // Re-init lucide icons for command palette
+    setTimeout(() => lucide.createIcons(), 100);
   </script>
 </body>
 </html>
