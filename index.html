@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pelin avsar</title>
-
   <meta name="description" content="Pelin Avsar - Software Engineer, AI/ML, Game Dev • TU Berlin">
   <meta name="author" content="Pelin Avsar">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -20,10 +18,8 @@
         extend: {
           colors: {
             'matrix': '#00ff41',
-            'matrix-dark': '#008F11',
-          },
-          fontFamily: {
-            'mono': ['JetBrains Mono', 'monospace'],
+            'matrix-dim': '#00aa2a',
+            'matrix-dark': '#004d1a',
           },
         }
       }
@@ -32,386 +28,708 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: 'JetBrains Mono', monospace;
       background: #000;
       color: #00ff41;
       overflow-x: hidden;
+      cursor: none;
     }
 
+    /* Custom cursor */
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #00ff41;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s, opacity 0.1s;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-dot {
+      width: 4px;
+      height: 4px;
+      background: #00ff41;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .cursor.hover {
+      transform: scale(2);
+      background: rgba(0, 255, 65, 0.1);
+    }
+
+    /* Selection */
     ::selection {
       background: #00ff41;
       color: #000;
     }
 
-    .terminal-cursor {
-      display: inline-block;
-      width: 10px;
-      height: 20px;
-      background: #00ff41;
-      animation: blink 1s infinite;
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #00ff41; }
+    ::-webkit-scrollbar-thumb:hover { background: #00aa2a; }
+
+    /* Animated snake logo */
+    .snake-logo {
+      filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.5));
+    }
+
+    .snake-logo path {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: snake-draw 2s ease forwards;
+    }
+
+    @keyframes snake-draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .snake-logo:hover path {
+      animation: snake-pulse 0.5s ease infinite alternate;
+    }
+
+    @keyframes snake-pulse {
+      from { stroke-width: 2; filter: drop-shadow(0 0 5px #00ff41); }
+      to { stroke-width: 3; filter: drop-shadow(0 0 15px #00ff41); }
+    }
+
+    /* Typing animation */
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #00ff41;
+      animation: typing 2s steps(20) forwards, blink 0.8s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
     }
 
     @keyframes blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
+      50% { border-color: transparent; }
     }
 
+    /* Glitch effect */
     .glitch {
       position: relative;
       white-space: nowrap;
     }
 
-    .glitch:hover::before {
+    .glitch::before,
+    .glitch::after {
       content: attr(data-text);
       position: absolute;
       top: 0;
-      left: 2px;
+      left: 0;
       width: 100%;
-      text-shadow: -2px 0 #ff0000;
-      animation: glitch-anim 0.3s infinite;
+      height: 100%;
+      opacity: 0;
     }
 
-    @keyframes glitch-anim {
-      0% { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
-      25% { clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%); }
-      50% { clip-path: polygon(0 10%, 100% 10%, 100% 55%, 0 55%); }
-      75% { clip-path: polygon(0 70%, 100% 70%, 100% 95%, 0 95%); }
-      100% { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+    .glitch:hover::before {
+      opacity: 1;
+      color: #ff0040;
+      animation: glitch-1 0.2s infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
     }
 
+    .glitch:hover::after {
+      opacity: 1;
+      color: #00ffff;
+      animation: glitch-2 0.2s infinite;
+      clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    }
+
+    @keyframes glitch-1 {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-3px); }
+      40% { transform: translateX(3px); }
+      60% { transform: translateX(-1px); }
+      80% { transform: translateX(2px); }
+    }
+
+    @keyframes glitch-2 {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(3px); }
+      40% { transform: translateX(-2px); }
+      60% { transform: translateX(2px); }
+      80% { transform: translateX(-3px); }
+    }
+
+    /* Hover underline */
     .hover-line {
       position: relative;
-      transition: all 0.3s;
     }
 
     .hover-line::after {
       content: '';
       position: absolute;
-      bottom: -2px;
+      bottom: -4px;
       left: 0;
       width: 0;
-      height: 1px;
-      background: #00ff41;
-      transition: width 0.3s;
+      height: 2px;
+      background: linear-gradient(90deg, #00ff41, transparent);
+      transition: width 0.3s ease;
     }
 
     .hover-line:hover::after {
       width: 100%;
     }
 
+    /* Project cards with 3D tilt */
     .project-card {
-      border: 1px solid #00ff41;
       background: rgba(0, 255, 65, 0.02);
-      transition: all 0.3s;
+      border: 1px solid rgba(0, 255, 65, 0.2);
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+      perspective: 1000px;
     }
 
     .project-card:hover {
-      background: rgba(0, 255, 65, 0.05);
       border-color: #00ff41;
-      box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+      box-shadow:
+        0 0 30px rgba(0, 255, 65, 0.2),
+        inset 0 0 30px rgba(0, 255, 65, 0.05);
     }
 
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(0, 255, 65, 0.1) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Skill tags */
     .skill-tag {
-      border: 1px solid #008F11;
       background: rgba(0, 255, 65, 0.05);
-      transition: all 0.2s;
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      transition: all 0.2s ease;
     }
 
     .skill-tag:hover {
+      background: rgba(0, 255, 65, 0.15);
       border-color: #00ff41;
-      background: rgba(0, 255, 65, 0.1);
+      box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+      transform: translateY(-2px);
     }
 
-    /* Matrix rain effect */
-    #matrix-bg {
+    /* Fade in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger children */
+    .stagger-children > * {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .stagger-children.visible > *:nth-child(1) { animation: fadeUp 0.5s 0.1s forwards; }
+    .stagger-children.visible > *:nth-child(2) { animation: fadeUp 0.5s 0.2s forwards; }
+    .stagger-children.visible > *:nth-child(3) { animation: fadeUp 0.5s 0.3s forwards; }
+    .stagger-children.visible > *:nth-child(4) { animation: fadeUp 0.5s 0.4s forwards; }
+    .stagger-children.visible > *:nth-child(5) { animation: fadeUp 0.5s 0.5s forwards; }
+    .stagger-children.visible > *:nth-child(6) { animation: fadeUp 0.5s 0.6s forwards; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Terminal section */
+    .terminal {
+      background: rgba(0, 20, 0, 0.8);
+      border: 1px solid #00ff41;
+      box-shadow:
+        0 0 0 1px rgba(0, 255, 65, 0.1),
+        0 0 30px rgba(0, 255, 65, 0.1),
+        inset 0 0 50px rgba(0, 255, 65, 0.05);
+    }
+
+    .terminal-header {
+      background: rgba(0, 255, 65, 0.1);
+      border-bottom: 1px solid rgba(0, 255, 65, 0.3);
+    }
+
+    /* Scanline overlay */
+    .scanlines::after {
+      content: '';
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      opacity: 0.03;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.3;
+    }
+
+    /* Glow text */
+    .glow {
+      text-shadow:
+        0 0 10px rgba(0, 255, 65, 0.8),
+        0 0 20px rgba(0, 255, 65, 0.6),
+        0 0 30px rgba(0, 255, 65, 0.4);
+    }
+
+    /* Link arrow animation */
+    .link-arrow {
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+
+    a:hover .link-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Section divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #00ff41, transparent);
+      opacity: 0.3;
+    }
+
+    /* Mobile cursor fix */
+    @media (hover: none) {
+      body { cursor: auto; }
+      .cursor, .cursor-dot { display: none; }
     }
   </style>
 </head>
 
-<body class="text-matrix">
-  <!-- Matrix background -->
-  <canvas id="matrix-bg"></canvas>
+<body class="scanlines">
+  <!-- Custom cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
 
   <!-- Navigation -->
-  <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-sm border-b border-matrix/20">
+  <nav class="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-matrix/20">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="#" class="group">
-        <svg width="40" height="24" viewBox="0 0 64 40" class="transition-all group-hover:scale-110">
-          <!-- Infinity symbol base -->
-          <path d="M 16 20 C 16 12, 20 8, 24 8 C 28 8, 32 12, 32 20 C 32 28, 36 32, 40 32 C 44 32, 48 28, 48 20 C 48 12, 44 8, 40 8 C 36 8, 32 12, 32 20 C 32 28, 28 32, 24 32 C 20 32, 16 28, 16 20 Z"
-                fill="none"
-                stroke="#00ff41"
-                stroke-width="2"/>
-          <!-- Left snake head -->
-          <circle cx="24" cy="8" r="2" fill="#00ff41"/>
-          <circle cx="23" cy="7" r="0.5" fill="#000"/>
-          <circle cx="25" cy="7" r="0.5" fill="#000"/>
-          <!-- Right snake head -->
-          <circle cx="40" cy="32" r="2" fill="#00ff41"/>
-          <circle cx="39" cy="33" r="0.5" fill="#000"/>
-          <circle cx="41" cy="33" r="0.5" fill="#000"/>
+      <a href="#" class="snake-logo" data-cursor="hover">
+        <svg width="48" height="28" viewBox="0 0 64 40">
+          <path d="M 16 20 C 16 10, 22 6, 28 8 C 32 9, 32 15, 32 20 C 32 25, 32 31, 36 32 C 42 34, 48 30, 48 20 C 48 10, 42 6, 36 8 C 32 9, 32 15, 32 20 C 32 25, 32 31, 28 32 C 22 34, 16 30, 16 20 Z"
+                fill="none" stroke="#00ff41" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="26" cy="9" r="1.5" fill="#00ff41"/>
+          <circle cx="38" cy="31" r="1.5" fill="#00ff41"/>
         </svg>
       </a>
       <div class="hidden md:flex gap-8 text-sm">
-        <a href="#about" class="hover-line">about</a>
-        <a href="#work" class="hover-line">work</a>
-        <a href="#skills" class="hover-line">skills</a>
-        <a href="#contact" class="hover-line">contact</a>
+        <a href="#about" class="hover-line text-white/60 hover:text-matrix transition-colors" data-cursor="hover">about</a>
+        <a href="#work" class="hover-line text-white/60 hover:text-matrix transition-colors" data-cursor="hover">work</a>
+        <a href="#skills" class="hover-line text-white/60 hover:text-matrix transition-colors" data-cursor="hover">skills</a>
+        <a href="#contact" class="hover-line text-white/60 hover:text-matrix transition-colors" data-cursor="hover">contact</a>
       </div>
     </div>
   </nav>
 
   <!-- Hero -->
-  <section class="min-h-screen flex items-center justify-center px-6">
-    <div class="max-w-4xl">
-      <div class="text-sm mb-4 text-matrix-dark">
-        <span class="text-white">guest@terminal</span>:~$ whoami
+  <section class="min-h-screen flex items-center justify-center px-6 pt-20">
+    <div class="max-w-4xl w-full">
+      <div class="terminal rounded-lg overflow-hidden">
+        <div class="terminal-header px-4 py-2 flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+          <span class="ml-4 text-xs text-white/40">pelin@arch ~</span>
+        </div>
+        <div class="p-8">
+          <div class="text-sm text-matrix-dim mb-2">
+            <span class="text-matrix">➜</span> <span class="text-white/60">~</span> whoami
+          </div>
+          <h1 class="text-5xl md:text-7xl font-bold mb-6 glitch glow" data-text="pelin avsar" data-cursor="hover">
+            pelin avsar
+          </h1>
+          <div class="space-y-2 text-lg md:text-xl text-white/70 mb-8 stagger-children" id="hero-text">
+            <p><span class="text-matrix">→</span> software engineer</p>
+            <p><span class="text-matrix">→</span> AI/ML · game dev · trading</p>
+            <p><span class="text-matrix">→</span> M.Sc. CS @ TU Berlin</p>
+          </div>
+          <div class="flex flex-wrap gap-6 text-sm">
+            <a href="mailto:pelinavsar98@gmail.com" class="hover-line flex items-center gap-2 text-white/60 hover:text-matrix transition-colors" data-cursor="hover">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+              <span>email</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <a href="https://github.com/pelin1337" target="_blank" class="hover-line flex items-center gap-2 text-white/60 hover:text-matrix transition-colors" data-cursor="hover">
+              <i data-lucide="github" class="w-4 h-4"></i>
+              <span>github</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <a href="https://www.linkedin.com/in/pelin-avsar-201369146/" target="_blank" class="hover-line flex items-center gap-2 text-white/60 hover:text-matrix transition-colors" data-cursor="hover">
+              <i data-lucide="linkedin" class="w-4 h-4"></i>
+              <span>linkedin</span>
+              <span class="link-arrow">→</span>
+            </a>
+          </div>
+        </div>
       </div>
-      <h1 class="text-6xl md:text-8xl font-bold mb-6 glitch" data-text="pelin avsar">
-        pelin avsar
-      </h1>
-      <div class="text-xl md:text-2xl mb-8 text-white/80">
-        <span class="text-matrix">&gt;</span> Software Engineer<br>
-        <span class="text-matrix">&gt;</span> AI/ML • Game Dev • Trading<br>
-        <span class="text-matrix">&gt;</span> M.Sc. CS @ TU Berlin
-      </div>
-      <div class="flex gap-6 text-sm">
-        <a href="mailto:pelinavsar98@gmail.com" class="hover-line flex items-center gap-2">
-          <i data-lucide="mail" class="w-4 h-4"></i>email
-        </a>
-        <a href="https://github.com/pelin1337" target="_blank" class="hover-line flex items-center gap-2">
-          <i data-lucide="github" class="w-4 h-4"></i>github
-        </a>
-        <a href="https://www.linkedin.com/in/pelin-avsar-201369146/" target="_blank" class="hover-line flex items-center gap-2">
-          <i data-lucide="linkedin" class="w-4 h-4"></i>linkedin
+
+      <div class="mt-16 flex justify-center">
+        <a href="#about" class="text-matrix-dim hover:text-matrix transition-colors animate-bounce" data-cursor="hover">
+          <i data-lucide="chevron-down" class="w-8 h-8"></i>
         </a>
       </div>
     </div>
   </section>
 
   <!-- About -->
-  <section id="about" class="min-h-screen flex items-center px-6 py-20">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-sm mb-8 text-matrix-dark">
-        <span class="text-white">guest@terminal</span>:~$ cat about.txt
+  <section id="about" class="min-h-screen flex items-center px-6 py-32">
+    <div class="max-w-4xl mx-auto fade-in">
+      <div class="text-sm text-matrix-dim mb-8">
+        <span class="text-matrix">➜</span> <span class="text-white/60">~</span> cat about.md
       </div>
-      <div class="space-y-4 text-white/80 text-lg leading-relaxed">
-        <p>I'm a <span class="text-matrix">Software Engineer</span> and <span class="text-matrix">Master's student at TU Berlin</span>.</p>
-        <p>I build things at the intersection of <span class="text-matrix">AI</span>, <span class="text-matrix">games</span>, and <span class="text-matrix">algorithmic trading</span>.</p>
-        <p>Currently exploring behavior trees, neural networks, and the boundaries between intelligence, art, and emotion.</p>
+      <div class="space-y-6 text-lg text-white/70 leading-relaxed">
+        <p>
+          I build systems that <span class="text-matrix glow">think</span>, <span class="text-matrix glow">play</span>, and <span class="text-matrix glow">trade</span>.
+        </p>
+        <p>
+          Currently pursuing my Master's in Computer Science at <span class="text-matrix">TU Berlin</span>,
+          diving deep into the intersection of artificial intelligence and interactive systems.
+        </p>
+        <p>
+          I'm fascinated by the boundaries between <span class="text-matrix">intelligence</span>,
+          <span class="text-matrix">art</span>, and <span class="text-matrix">emotion</span> —
+          and how code can blur those lines.
+        </p>
+        <p class="text-white/40 text-sm mt-8">
+          // when not coding: training neural nets, breaking game engines, or losing money on bad trades
+        </p>
       </div>
     </div>
   </section>
 
+  <div class="divider max-w-4xl mx-auto"></div>
+
   <!-- Projects -->
-  <section id="work" class="min-h-screen px-6 py-20">
+  <section id="work" class="min-h-screen px-6 py-32">
     <div class="max-w-6xl mx-auto">
-      <div class="text-sm mb-8 text-matrix-dark">
-        <span class="text-white">guest@terminal</span>:~$ ls projects/
+      <div class="text-sm text-matrix-dim mb-12 fade-in">
+        <span class="text-matrix">➜</span> <span class="text-white/60">~</span> ls -la projects/
       </div>
 
-      <div class="grid md:grid-cols-2 gap-6">
+      <div class="grid md:grid-cols-2 gap-6 stagger-children" id="projects-grid">
         <!-- Project 1 -->
-        <div class="project-card p-6">
+        <div class="project-card p-6 rounded-lg relative overflow-hidden" data-cursor="hover">
           <div class="flex items-start justify-between mb-4">
-            <h3 class="text-xl font-semibold">UE5 AI Playground</h3>
-            <i data-lucide="cpu" class="w-5 h-5"></i>
+            <div class="p-2 rounded bg-matrix/10">
+              <i data-lucide="cpu" class="w-5 h-5"></i>
+            </div>
+            <a href="https://github.com/pelin1337" target="_blank" class="text-white/40 hover:text-matrix transition-colors">
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
           </div>
-          <p class="text-white/60 mb-4 text-sm">
-            Advanced AI behavior trees and motion matching with Unreal Engine 5 + GASP framework.
+          <h3 class="text-xl font-semibold mb-2">UE5 AI Playground</h3>
+          <p class="text-white/50 mb-4 text-sm leading-relaxed">
+            Advanced AI behavior trees and motion matching using Unreal Engine 5 + GASP. Building NPCs that feel alive.
           </p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="skill-tag px-2 py-1 text-xs">Unreal Engine</span>
-            <span class="skill-tag px-2 py-1 text-xs">C++</span>
-            <span class="skill-tag px-2 py-1 text-xs">AI</span>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-2 py-1 text-xs rounded">Unreal Engine</span>
+            <span class="skill-tag px-2 py-1 text-xs rounded">C++</span>
+            <span class="skill-tag px-2 py-1 text-xs rounded">AI</span>
           </div>
-          <a href="https://github.com/pelin1337" target="_blank" class="text-sm hover-line inline-flex items-center gap-2">
-            <i data-lucide="external-link" class="w-3 h-3"></i>view
-          </a>
         </div>
 
         <!-- Project 2 -->
-        <div class="project-card p-6">
+        <div class="project-card p-6 rounded-lg relative overflow-hidden" data-cursor="hover">
           <div class="flex items-start justify-between mb-4">
-            <h3 class="text-xl font-semibold">ML Trading Bot</h3>
-            <i data-lucide="trending-up" class="w-5 h-5"></i>
+            <div class="p-2 rounded bg-matrix/10">
+              <i data-lucide="trending-up" class="w-5 h-5"></i>
+            </div>
+            <a href="https://github.com/pelin1337" target="_blank" class="text-white/40 hover:text-matrix transition-colors">
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
           </div>
-          <p class="text-white/60 mb-4 text-sm">
-            Deep reinforcement learning bot for algorithmic trading with adaptive strategies.
+          <h3 class="text-xl font-semibold mb-2">ML Trading Bot</h3>
+          <p class="text-white/50 mb-4 text-sm leading-relaxed">
+            Deep reinforcement learning for algorithmic trading. It doesn't always win, but it learns from its losses.
           </p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="skill-tag px-2 py-1 text-xs">Python</span>
-            <span class="skill-tag px-2 py-1 text-xs">TensorFlow</span>
-            <span class="skill-tag px-2 py-1 text-xs">RL</span>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-2 py-1 text-xs rounded">Python</span>
+            <span class="skill-tag px-2 py-1 text-xs rounded">PyTorch</span>
+            <span class="skill-tag px-2 py-1 text-xs rounded">RL</span>
           </div>
-          <a href="https://github.com/pelin1337" target="_blank" class="text-sm hover-line inline-flex items-center gap-2">
-            <i data-lucide="external-link" class="w-3 h-3"></i>view
-          </a>
         </div>
 
         <!-- Project 3 -->
-        <div class="project-card p-6">
+        <div class="project-card p-6 rounded-lg relative overflow-hidden" data-cursor="hover">
           <div class="flex items-start justify-between mb-4">
-            <h3 class="text-xl font-semibold">Neural Net Visualizer</h3>
-            <i data-lucide="brain" class="w-5 h-5"></i>
+            <div class="p-2 rounded bg-matrix/10">
+              <i data-lucide="brain" class="w-5 h-5"></i>
+            </div>
+            <a href="https://github.com/pelin1337" target="_blank" class="text-white/40 hover:text-matrix transition-colors">
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
           </div>
-          <p class="text-white/60 mb-4 text-sm">
-            Real-time visualization of neural network architectures and training processes.
+          <h3 class="text-xl font-semibold mb-2">Neural Net Visualizer</h3>
+          <p class="text-white/50 mb-4 text-sm leading-relaxed">
+            Real-time visualization of neural network architectures. Watch gradients flow and weights update live.
           </p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="skill-tag px-2 py-1 text-xs">React</span>
-            <span class="skill-tag px-2 py-1 text-xs">D3.js</span>
-            <span class="skill-tag px-2 py-1 text-xs">WebGL</span>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-2 py-1 text-xs rounded">React</span>
+            <span class="skill-tag px-2 py-1 text-xs rounded">Three.js</span>
+            <span class="skill-tag px-2 py-1 text-xs rounded">WebGL</span>
           </div>
-          <a href="https://github.com/pelin1337" target="_blank" class="text-sm hover-line inline-flex items-center gap-2">
-            <i data-lucide="external-link" class="w-3 h-3"></i>view
-          </a>
         </div>
 
         <!-- Project 4 -->
-        <div class="project-card p-6">
+        <div class="project-card p-6 rounded-lg relative overflow-hidden" data-cursor="hover">
           <div class="flex items-start justify-between mb-4">
-            <h3 class="text-xl font-semibold">Procedural World Gen</h3>
-            <i data-lucide="map" class="w-5 h-5"></i>
+            <div class="p-2 rounded bg-matrix/10">
+              <i data-lucide="map" class="w-5 h-5"></i>
+            </div>
+            <a href="https://github.com/pelin1337" target="_blank" class="text-white/40 hover:text-matrix transition-colors">
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
           </div>
-          <p class="text-white/60 mb-4 text-sm">
-            Infinite procedural world generation using noise functions and AI-driven biomes.
+          <h3 class="text-xl font-semibold mb-2">Procedural Worlds</h3>
+          <p class="text-white/50 mb-4 text-sm leading-relaxed">
+            Infinite terrain generation using noise algorithms and AI-driven biome distribution. Every world is unique.
           </p>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="skill-tag px-2 py-1 text-xs">Unity</span>
-            <span class="skill-tag px-2 py-1 text-xs">C#</span>
-            <span class="skill-tag px-2 py-1 text-xs">PCG</span>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-2 py-1 text-xs rounded">Unity</span>
+            <span class="skill-tag px-2 py-1 text-xs rounded">C#</span>
+            <span class="skill-tag px-2 py-1 text-xs rounded">Compute Shaders</span>
           </div>
-          <a href="https://github.com/pelin1337" target="_blank" class="text-sm hover-line inline-flex items-center gap-2">
-            <i data-lucide="external-link" class="w-3 h-3"></i>view
-          </a>
         </div>
       </div>
     </div>
   </section>
+
+  <div class="divider max-w-4xl mx-auto"></div>
 
   <!-- Skills -->
-  <section id="skills" class="min-h-screen px-6 py-20">
+  <section id="skills" class="px-6 py-32">
     <div class="max-w-6xl mx-auto">
-      <div class="text-sm mb-8 text-matrix-dark">
-        <span class="text-white">guest@terminal</span>:~$ cat skills.json
+      <div class="text-sm text-matrix-dim mb-12 fade-in">
+        <span class="text-matrix">➜</span> <span class="text-white/60">~</span> cat skills.json | jq
       </div>
 
-      <div class="grid md:grid-cols-3 gap-12">
-        <div>
-          <h3 class="text-lg font-semibold mb-4 text-white">Languages</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-children" id="skills-grid">
+        <div class="fade-in">
+          <h3 class="text-lg font-semibold mb-4 text-white flex items-center gap-2">
+            <span class="text-matrix">//</span> languages
+          </h3>
           <div class="flex flex-wrap gap-2">
-            <span class="skill-tag px-3 py-1 text-sm">Python</span>
-            <span class="skill-tag px-3 py-1 text-sm">C++</span>
-            <span class="skill-tag px-3 py-1 text-sm">JavaScript</span>
-            <span class="skill-tag px-3 py-1 text-sm">TypeScript</span>
-            <span class="skill-tag px-3 py-1 text-sm">C#</span>
-            <span class="skill-tag px-3 py-1 text-sm">SQL</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">Python</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">C++</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">TypeScript</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">C#</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">Rust</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">SQL</span>
           </div>
         </div>
 
-        <div>
-          <h3 class="text-lg font-semibold mb-4 text-white">AI/ML</h3>
+        <div class="fade-in">
+          <h3 class="text-lg font-semibold mb-4 text-white flex items-center gap-2">
+            <span class="text-matrix">//</span> AI/ML
+          </h3>
           <div class="flex flex-wrap gap-2">
-            <span class="skill-tag px-3 py-1 text-sm">TensorFlow</span>
-            <span class="skill-tag px-3 py-1 text-sm">PyTorch</span>
-            <span class="skill-tag px-3 py-1 text-sm">scikit-learn</span>
-            <span class="skill-tag px-3 py-1 text-sm">Keras</span>
-            <span class="skill-tag px-3 py-1 text-sm">OpenCV</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">PyTorch</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">TensorFlow</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">JAX</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">OpenCV</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">HuggingFace</span>
           </div>
         </div>
 
-        <div>
-          <h3 class="text-lg font-semibold mb-4 text-white">Game Dev</h3>
+        <div class="fade-in">
+          <h3 class="text-lg font-semibold mb-4 text-white flex items-center gap-2">
+            <span class="text-matrix">//</span> game dev
+          </h3>
           <div class="flex flex-wrap gap-2">
-            <span class="skill-tag px-3 py-1 text-sm">Unreal Engine</span>
-            <span class="skill-tag px-3 py-1 text-sm">Unity</span>
-            <span class="skill-tag px-3 py-1 text-sm">Blender</span>
-            <span class="skill-tag px-3 py-1 text-sm">GASP</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">Unreal Engine</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">Unity</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">Blender</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">GLSL</span>
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <h3 class="text-lg font-semibold mb-4 text-white flex items-center gap-2">
+            <span class="text-matrix">//</span> tools
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">Git</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">Docker</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">Linux</span>
+            <span class="skill-tag px-3 py-1.5 text-sm rounded" data-cursor="hover">AWS</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <div class="divider max-w-4xl mx-auto"></div>
+
   <!-- Contact -->
-  <section id="contact" class="min-h-screen flex items-center px-6 py-20">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-sm mb-8 text-matrix-dark">
-        <span class="text-white">guest@terminal</span>:~$ ./contact.sh
+  <section id="contact" class="min-h-screen flex items-center px-6 py-32">
+    <div class="max-w-4xl mx-auto w-full fade-in">
+      <div class="text-sm text-matrix-dim mb-8">
+        <span class="text-matrix">➜</span> <span class="text-white/60">~</span> ./connect.sh
       </div>
-      <h2 class="text-4xl md:text-6xl font-bold mb-8">Let's build something.</h2>
-      <div class="flex flex-col gap-4 text-lg">
-        <a href="mailto:pelinavsar98@gmail.com" class="hover-line inline-flex items-center gap-3">
-          <i data-lucide="mail" class="w-5 h-5"></i>
+      <h2 class="text-4xl md:text-6xl font-bold mb-4 glow">let's build something</h2>
+      <p class="text-white/50 mb-12 text-lg">
+        Got an interesting project? Want to collaborate? Or just want to talk about AI and games?
+      </p>
+      <div class="space-y-4">
+        <a href="mailto:pelinavsar98@gmail.com" class="group flex items-center gap-4 text-lg text-white/60 hover:text-matrix transition-colors" data-cursor="hover">
+          <span class="w-12 h-12 rounded-lg border border-matrix/30 flex items-center justify-center group-hover:bg-matrix/10 transition-colors">
+            <i data-lucide="mail" class="w-5 h-5"></i>
+          </span>
           <span>pelinavsar98@gmail.com</span>
+          <span class="link-arrow ml-auto">→</span>
         </a>
-        <a href="https://github.com/pelin1337" target="_blank" class="hover-line inline-flex items-center gap-3">
-          <i data-lucide="github" class="w-5 h-5"></i>
+        <a href="https://github.com/pelin1337" target="_blank" class="group flex items-center gap-4 text-lg text-white/60 hover:text-matrix transition-colors" data-cursor="hover">
+          <span class="w-12 h-12 rounded-lg border border-matrix/30 flex items-center justify-center group-hover:bg-matrix/10 transition-colors">
+            <i data-lucide="github" class="w-5 h-5"></i>
+          </span>
           <span>github.com/pelin1337</span>
+          <span class="link-arrow ml-auto">→</span>
         </a>
-        <a href="https://www.linkedin.com/in/pelin-avsar-201369146/" target="_blank" class="hover-line inline-flex items-center gap-3">
-          <i data-lucide="linkedin" class="w-5 h-5"></i>
+        <a href="https://www.linkedin.com/in/pelin-avsar-201369146/" target="_blank" class="group flex items-center gap-4 text-lg text-white/60 hover:text-matrix transition-colors" data-cursor="hover">
+          <span class="w-12 h-12 rounded-lg border border-matrix/30 flex items-center justify-center group-hover:bg-matrix/10 transition-colors">
+            <i data-lucide="linkedin" class="w-5 h-5"></i>
+          </span>
           <span>linkedin.com/in/pelin-avsar</span>
+          <span class="link-arrow ml-auto">→</span>
         </a>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="border-t border-matrix/20 py-8 px-6">
-    <div class="max-w-6xl mx-auto text-center text-sm text-white/40">
-      <p>© 2026 pelin avsar • built with spite and caffeine</p>
+  <footer class="border-t border-matrix/10 py-8 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/30">
+      <p>© 2026 pelin avsar</p>
+      <p>built with <span class="text-matrix">◈</span> and too much caffeine</p>
     </div>
   </footer>
 
   <script>
-    // Initialize icons
+    // Initialize Lucide icons
     lucide.createIcons();
 
-    // Matrix rain effect
-    const canvas = document.getElementById('matrix-bg');
-    const ctx = canvas.getContext('2d');
+    // Custom cursor
+    const cursor = document.querySelector('.cursor');
+    const cursorDot = document.querySelector('.cursor-dot');
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = mouseX - 2 + 'px';
+      cursorDot.style.top = mouseY - 2 + 'px';
+    });
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
-
-    function drawMatrix() {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = '#00ff41';
-      ctx.font = fontSize + 'px monospace';
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
+    // Smooth cursor follow
+    function animateCursor() {
+      cursorX += (mouseX - cursorX) * 0.15;
+      cursorY += (mouseY - cursorY) * 0.15;
+      cursor.style.left = cursorX - 10 + 'px';
+      cursor.style.top = cursorY - 10 + 'px';
+      requestAnimationFrame(animateCursor);
     }
+    animateCursor();
 
-    setInterval(drawMatrix, 50);
+    // Cursor hover effect
+    document.querySelectorAll('[data-cursor="hover"]').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
 
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in, .stagger-children').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Trigger hero animations immediately
+    setTimeout(() => {
+      document.getElementById('hero-text')?.classList.add('visible');
+    }, 500);
+
+    // 3D tilt effect on project cards
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+      });
+    });
+
+    // Konami code easter egg
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          document.body.style.filter = 'hue-rotate(180deg)';
+          setTimeout(() => {
+            document.body.style.filter = '';
+          }, 3000);
+          konamiIndex = 0;
+        }
+      } else {
+        konamiIndex = 0;
+      }
     });
   </script>
 </body>
