@@ -59,12 +59,15 @@
 
     .glitch {
       position: relative;
+      white-space: nowrap;
     }
 
     .glitch:hover::before {
       content: attr(data-text);
       position: absolute;
+      top: 0;
       left: 2px;
+      width: 100%;
       text-shadow: -2px 0 #ff0000;
       animation: glitch-anim 0.3s infinite;
     }
