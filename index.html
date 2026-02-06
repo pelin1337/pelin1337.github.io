@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pelin avsar</title>
-  <meta name="description" content="Pelin Avsar - Software Engineer, AI/ML, Game Dev • TU Berlin">
+  <meta name="description" content="Pelin Avsar">
   <meta name="author" content="Pelin Avsar">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -53,46 +53,6 @@
       font-family: 'Space Grotesk', 'JetBrains Mono', sans-serif;
       letter-spacing: -0.02em;
       color: #f4fff8;
-    }
-
-    /* Boot sequence overlay */
-    .boot-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      z-index: 99999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      transition: opacity 0.5s, visibility 0.5s;
-    }
-
-    .boot-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .boot-text {
-      font-size: 14px;
-      color: #00ff41;
-      text-align: left;
-      max-width: 600px;
-      padding: 20px;
-    }
-
-    .boot-text .line {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-
-    .boot-text .line.visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 0.3s ease;
     }
 
     .boot-cursor {
@@ -659,18 +619,6 @@
 </head>
 
 <body class="scanlines">
-  <!-- Boot sequence -->
-  <div class="boot-screen" id="boot-screen">
-    <div class="boot-text" id="boot-text">
-      <div class="line">[<span class="accent-purple">BIOS</span>] Initializing system...</div>
-      <div class="line">[<span class="accent-purple">CPU</span>] Neural cores: <span class="text-matrix">ONLINE</span></div>
-      <div class="line">[<span class="accent-purple">MEM</span>] Loading creativity.dll... <span class="text-matrix">OK</span></div>
-      <div class="line">[<span class="accent-purple">GPU</span>] Rendering pipeline: <span class="text-matrix">READY</span></div>
-      <div class="line">[<span class="accent-purple">NET</span>] Connecting to the matrix...</div>
-      <div class="line">[<span class="accent-purple">SYS</span>] Welcome, visitor.<span class="boot-cursor"></span></div>
-    </div>
-  </div>
-
   <!-- Matrix rain background -->
   <canvas id="matrix-rain"></canvas>
 
@@ -805,7 +753,7 @@
             pelin avsar
           </h1>
           <div class="space-y-2 text-lg md:text-xl text-white/70 mb-8 stagger-children" id="hero-text">
-            <p class="flex items-center gap-2"><svg class="w-5 h-3 inline-block flex-shrink-0" viewBox="0 0 80 40"><path d="M 40 20 C 40 8, 28 4, 18 10 C 8 16, 8 28, 18 32 C 28 36, 38 28, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/><path d="M 40 20 C 40 32, 52 36, 62 30 C 72 24, 72 12, 62 8 C 52 4, 42 12, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/><circle cx="14" cy="12" r="4" fill="#00ff41"/><circle cx="66" cy="28" r="4" fill="#00ff41"/></svg> software engineer</p>
+            <p class="flex items-center gap-2"><svg class="w-5 h-3 inline-block flex-shrink-0" viewBox="0 0 80 40"><path d="M 40 20 C 40 8, 28 4, 18 10 C 8 16, 8 28, 18 32 C 28 36, 38 28, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/><path d="M 40 20 C 40 32, 52 36, 62 30 C 72 24, 72 12, 62 8 C 52 4, 42 12, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/><circle cx="14" cy="12" r="4" fill="#00ff41"/><circle cx="66" cy="28" r="4" fill="#00ff41"/></svg> software engineer @ ivy</p>
             <p class="flex items-center gap-2"><svg class="w-5 h-3 inline-block flex-shrink-0" viewBox="0 0 80 40"><path d="M 40 20 C 40 8, 28 4, 18 10 C 8 16, 8 28, 18 32 C 28 36, 38 28, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/><path d="M 40 20 C 40 32, 52 36, 62 30 C 72 24, 72 12, 62 8 C 52 4, 42 12, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/><circle cx="14" cy="12" r="4" fill="#00ff41"/><circle cx="66" cy="28" r="4" fill="#00ff41"/></svg> AI/ML · game dev · trading</p>
             <p class="flex items-center gap-2"><svg class="w-5 h-3 inline-block flex-shrink-0" viewBox="0 0 80 40"><path d="M 40 20 C 40 8, 28 4, 18 10 C 8 16, 8 28, 18 32 C 28 36, 38 28, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/><path d="M 40 20 C 40 32, 52 36, 62 30 C 72 24, 72 12, 62 8 C 52 4, 42 12, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/><circle cx="14" cy="12" r="4" fill="#00ff41"/><circle cx="66" cy="28" r="4" fill="#00ff41"/></svg> M.Sc. CS @ TU Berlin</p>
           </div>
@@ -853,15 +801,15 @@
           I build systems that <span class="text-matrix glow">think</span>, <span class="text-matrix glow">play</span>, and <span class="text-matrix glow">trade</span>.
         </p>
         <p>
-          Currently pursuing my Master's in Computer Science at <span class="text-matrix">TU Berlin</span>,
-          focusing on intelligent systems, system design and distributed systems.
+          I'm currently pursuing an M.Sc. in Computer Science at <span class="text-matrix">TU Berlin</span>,
+          with a focus on intelligent systems, distributed architecture, and practical engineering.
         </p>
         <p>
-          I try to explore the boundaries between <span class="text-matrix">intelligence</span>,
-          <span class="text-matrix">art</span>, and <span class="text-matrix">emotion</span>.
+          I care about building software that is both technically strong and expressive,
+          where <span class="text-matrix">intelligence</span>, <span class="text-matrix">design</span>, and <span class="text-matrix">human experience</span> meet.
         </p>
         <p class="text-white/40 text-sm mt-8">
-          // when not coding: grinding teamfight tactics, killing npcs on arc raiders, watching football, listening to lots of music
+          // outside of coding: video games, music prod
         </p>
       </div>
     </div>
@@ -881,7 +829,7 @@
         <span><span class="text-white/60">~</span> ls -la projects/</span>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-6 stagger-children" id="projects-grid">
+      <div class="grid md:grid-cols-2 gap-6 fade-in" id="projects-grid">
         <!-- Project 1 -->
         <div class="project-card p-6 rounded-lg relative overflow-hidden" data-cursor="hover">
           <div class="flex items-start justify-between mb-4">
@@ -894,33 +842,12 @@
           </div>
           <h3 class="text-xl font-semibold mb-2">UE5 Combat AI [SOON]</h3>
           <p class="text-white/50 mb-4 text-sm leading-relaxed">
-            Advanced AI behavior trees and motion matching using Unreal Engine 5 + GASP. Building NPCs that feel alive.
+            Advanced AI behavior trees and motion matching using Unreal Engine 5 + GASP. Includes combat and weapon animations.
           </p>
           <div class="flex flex-wrap gap-2">
             <span class="skill-tag px-2 py-1 text-xs rounded">Unreal Engine</span>
             <span class="skill-tag px-2 py-1 text-xs rounded">C++</span>
             <span class="skill-tag px-2 py-1 text-xs rounded">AI</span>
-          </div>
-        </div>
-
-        <!-- Project 2 -->
-        <div class="project-card p-6 rounded-lg relative overflow-hidden" data-cursor="hover">
-          <div class="flex items-start justify-between mb-4">
-            <div class="p-2 rounded bg-matrix/10">
-              <i data-lucide="trending-up" class="w-5 h-5"></i>
-            </div>
-            <a href="https://github.com/pelin1337" target="_blank" class="text-white/40 hover:text-matrix transition-colors">
-              <i data-lucide="external-link" class="w-4 h-4"></i>
-            </a>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">ML Trading Bot</h3>
-          <p class="text-white/50 mb-4 text-sm leading-relaxed">
-            Deep reinforcement learning for algorithmic trading. It doesn't always win, but it learns from its losses.
-          </p>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-tag px-2 py-1 text-xs rounded">Python</span>
-            <span class="skill-tag px-2 py-1 text-xs rounded">PyTorch</span>
-            <span class="skill-tag px-2 py-1 text-xs rounded">RL</span>
           </div>
         </div>
       </div>
@@ -1009,19 +936,29 @@
         <span><span class="text-white/60">~</span> ls blog/</span>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children" id="blog-grid">
-        <!-- Blog Post 1 -->
-        <a href="blog/why-i-mass-produce-side-projects.html" class="project-card p-6 rounded-lg relative overflow-hidden block" data-cursor="hover">
-          <div class="text-xs text-matrix-dim mb-3">2026.01.04</div>
-          <h3 class="text-lg font-semibold mb-2 text-white group-hover:text-matrix transition-colors">Why I Mass Produce Side Projects</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="blog-grid">
+        <div class="project-card p-6 rounded-lg relative overflow-hidden">
+          <div class="text-xs text-matrix-dim mb-3">status</div>
+          <h3 class="text-lg font-semibold mb-2 text-white">no blog posts yet</h3>
+          <p class="text-white/50 text-sm leading-relaxed">
+            New posts will appear here soon.
+          </p>
+        </div>
+
+        <!--
+        BLOG CARD TEMPLATE
+        <a href="blog/your-post-slug.html" class="project-card p-6 rounded-lg relative overflow-hidden block" data-cursor="hover">
+          <div class="text-xs text-matrix-dim mb-3">YYYY.MM.DD</div>
+          <h3 class="text-lg font-semibold mb-2 text-white group-hover:text-matrix transition-colors">Your Post Title</h3>
           <p class="text-white/50 text-sm leading-relaxed mb-4">
-            On the art of starting many things and finishing some of them.
+            One-line summary of the post.
           </p>
           <div class="flex items-center gap-2 text-matrix-dim text-sm">
             <svg class="w-4 h-2" viewBox="0 0 80 40"><path d="M 40 20 C 40 8, 28 4, 18 10 C 8 16, 8 28, 18 32 C 28 36, 38 28, 40 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M 40 20 C 40 32, 52 36, 62 30 C 72 24, 72 12, 62 8 C 52 4, 42 12, 40 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
-            <span>productivity</span>
+            <span>tag</span>
           </div>
         </a>
+        -->
       </div>
     </div>
   </section>
@@ -1079,30 +1016,6 @@
 
   <script>
     // ═══════════════════════════════════════════════════════════════
-    // BOOT SEQUENCE
-    // ═══════════════════════════════════════════════════════════════
-    const bootScreen = document.getElementById('boot-screen');
-    const bootLines = document.querySelectorAll('.boot-text .line');
-
-    // Check if already visited in this session
-    const hasBooted = sessionStorage.getItem('hasBooted');
-
-    if (hasBooted) {
-      bootScreen.classList.add('hidden');
-    } else {
-      bootLines.forEach((line, i) => {
-        setTimeout(() => {
-          line.classList.add('visible');
-        }, i * 400);
-      });
-
-      setTimeout(() => {
-        bootScreen.classList.add('hidden');
-        sessionStorage.setItem('hasBooted', 'true');
-      }, bootLines.length * 400 + 800);
-    }
-
-    // ═══════════════════════════════════════════════════════════════
     // MATRIX RAIN
     // ═══════════════════════════════════════════════════════════════
     const canvas = document.getElementById('matrix-rain');
@@ -1121,7 +1034,9 @@
 
     function resetMatrixDrops() {
       const columns = Math.floor(canvas.width / fontSize);
-      drops = Array(columns).fill(1);
+      const maxRows = Math.ceil(canvas.height / fontSize);
+      // Randomize starting rows so rain is already "in progress" on first frame.
+      drops = Array.from({ length: columns }, () => Math.floor(Math.random() * maxRows));
     }
 
     function drawMatrix() {
@@ -1377,16 +1292,16 @@
       observer.observe(el);
     });
 
-    // Trigger hero animations after boot
+    // Trigger hero text stagger
     setTimeout(() => {
       document.getElementById('hero-text')?.classList.add('visible');
-    }, hasBooted ? 500 : bootLines.length * 400 + 1000);
+    }, 500);
 
     // ═══════════════════════════════════════════════════════════════
     // 3D TILT EFFECT ON PROJECT CARDS
     // ═══════════════════════════════════════════════════════════════
     document.querySelectorAll('.project-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
+      const updateCardTransform = (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -1394,12 +1309,16 @@
         const centerY = rect.height / 2;
         const rotateX = (y - centerY) / 20;
         const rotateY = (centerX - x) / 20;
+        const shiftX = Math.max(-18, Math.min(18, (x - centerX) / 6));
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-      });
+        card.style.transform = `perspective(1000px) translateX(${shiftX}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+      };
+
+      card.addEventListener('mouseenter', updateCardTransform);
+      card.addEventListener('mousemove', updateCardTransform);
 
       card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        card.style.transform = 'perspective(1000px) translateX(0) rotateX(0) rotateY(0) scale(1)';
       });
     });
 
@@ -1451,7 +1370,7 @@
             terminalPrompt.querySelector('.boot-cursor').style.display = 'none';
           }, 500);
         }
-      }, hasBooted ? 100 : 150);
+      }, 100);
     }
 
     // Re-init lucide icons for command palette

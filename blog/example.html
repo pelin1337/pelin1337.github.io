@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why am I Forever Grateful for LLMs'</title>
+  <meta name="description" content="On the art of starting many things and finishing some of them.">
+  <meta name="author" content="Pelin Avsar">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'matrix': '#00ff41',
+            'matrix-dim': '#00aa2a',
+            'matrix-dark': '#004d1a',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Google Sans Code', monospace;
+      background: #000;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #00ff41;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s, opacity 0.1s;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-dot {
+      width: 4px;
+      height: 4px;
+      background: #00ff41;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .cursor.hover {
+      transform: scale(2);
+      background: rgba(0, 255, 65, 0.1);
+    }
+
+    ::selection {
+      background: #00ff41;
+      color: #000;
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #00ff41; }
+    ::-webkit-scrollbar-thumb:hover { background: #00aa2a; }
+
+    /* Snake logo animation */
+    .snake-logo {
+      filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.5));
+    }
+
+    .snake-logo path {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: snake-draw 2s ease forwards;
+    }
+
+    @keyframes snake-draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .snake-logo:hover path {
+      animation: snake-pulse 0.5s ease infinite alternate;
+    }
+
+    @keyframes snake-pulse {
+      from { stroke-width: 2; filter: drop-shadow(0 0 5px #00ff41); }
+      to { stroke-width: 3; filter: drop-shadow(0 0 15px #00ff41); }
+    }
+
+    /* Hover underline */
+    .hover-line {
+      position: relative;
+    }
+
+    .hover-line::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #00ff41, transparent);
+      transition: width 0.3s ease;
+    }
+
+    .hover-line:hover::after {
+      width: 100%;
+    }
+
+    /* Glow text */
+    .glow {
+      text-shadow:
+        0 0 10px rgba(0, 255, 65, 0.8),
+        0 0 20px rgba(0, 255, 65, 0.6),
+        0 0 30px rgba(0, 255, 65, 0.4);
+    }
+
+    /* Scanline overlay */
+    .scanlines::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.3;
+    }
+
+    /* Article styles */
+    .article-content {
+      line-height: 1.8;
+    }
+
+    .article-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .article-content h2 {
+      color: #00ff41;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 2.5rem 0 1rem 0;
+    }
+
+    .article-content h3 {
+      color: #00ff41;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin: 2rem 0 0.75rem 0;
+    }
+
+    .article-content ul, .article-content ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .article-content ul li::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 0.6rem;
+      width: 16px;
+      height: 8px;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 80 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 40 20 C 40 8, 28 4, 18 10 C 8 16, 8 28, 18 32 C 28 36, 38 28, 40 20' fill='none' stroke='%2300ff41' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M 40 20 C 40 32, 52 36, 62 30 C 72 24, 72 12, 62 8 C 52 4, 42 12, 40 20' fill='none' stroke='%2300ff41' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .article-content blockquote {
+      border-left: 3px solid #00ff41;
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+      color: rgba(255, 255, 255, 0.6);
+      font-style: italic;
+    }
+
+    .article-content code {
+      background: rgba(0, 255, 65, 0.1);
+      border: 1px solid rgba(0, 255, 65, 0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #00ff41;
+    }
+
+    .article-content pre {
+      background: rgba(0, 20, 0, 0.8);
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .article-content a {
+      color: #00ff41;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      transition: all 0.2s;
+    }
+
+    .article-content a:hover {
+      text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    }
+
+    .article-content strong {
+      color: #00ff41;
+      font-weight: 600;
+    }
+
+    /* Tag styles */
+    .tag {
+      background: rgba(0, 255, 65, 0.05);
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .tag:hover {
+      background: rgba(0, 255, 65, 0.15);
+      border-color: #00ff41;
+      box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    }
+
+    /* Back link */
+    .back-link {
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      color: #00ff41;
+    }
+
+    .back-link:hover .back-arrow {
+      transform: translateX(-4px);
+    }
+
+    .back-arrow {
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+
+    /* Mobile cursor fix */
+    @media (hover: none) {
+      body { cursor: auto; }
+      .cursor, .cursor-dot { display: none; }
+    }
+  </style>
+</head>
+
+
+<body class="scanlines">
+  <!-- Custom cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-matrix/20">
+    <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="../index.html" class="snake-logo" data-cursor="hover">
+        <svg viewBox="0 0 80 40" class="h-10 w-auto">
+          <!-- Left snake loop -->
+          <path d="M 40 20 C 40 8, 28 4, 18 10 C 8 16, 8 28, 18 32 C 28 36, 38 28, 40 20"
+                fill="none" stroke="#00ff41" stroke-width="3" stroke-linecap="round"/>
+          <!-- Right snake loop -->
+          <path d="M 40 20 C 40 32, 52 36, 62 30 C 72 24, 72 12, 62 8 C 52 4, 42 12, 40 20"
+                fill="none" stroke="#00ff41" stroke-width="3" stroke-linecap="round"/>
+          <!-- Left snake head -->
+          <circle cx="14" cy="12" r="3" fill="#00ff41"/>
+          <circle cx="12" cy="10" r="1" fill="#000"/>
+          <!-- Right snake head -->
+          <circle cx="66" cy="28" r="3" fill="#00ff41"/>
+          <circle cx="68" cy="30" r="1" fill="#000"/>
+          <!-- Forked tongues -->
+          <path d="M 10 12 L 6 10 M 10 12 L 6 14" stroke="#7e22ce" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M 70 28 L 74 26 M 70 28 L 74 30" stroke="#7e22ce" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <a href="../index.html#blog" class="back-link text-white/60 text-sm flex items-center gap-2" data-cursor="hover">
+        <span class="back-arrow">←</span>
+        <span>back to blog</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <article class="pt-32 pb-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 text-sm text-matrix-dim mb-4">
+          <svg width="20" height="10" viewBox="0 0 80 40" class="opacity-60">
+            <path d="M 40 20 C 40 8, 28 4, 18 10 C 8 16, 8 28, 18 32 C 28 36, 38 28, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/>
+            <path d="M 40 20 C 40 32, 52 36, 62 30 C 72 24, 72 12, 62 8 C 52 4, 42 12, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <time datetime="2026-01-04">2026.01.04</time>
+          <span class="text-white/30">·</span>
+          <span>5 min read</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-matrix glow mb-6 leading-tight">
+          Why am I Forever Grateful for LLMs 
+        </h1>
+
+        <p class="text-xl text-white/60 mb-6">
+          Yeah, I'm not scared if they replace me one day.
+        </p>
+
+        <div class="flex flex-wrap gap-2">
+          <span class="tag px-3 py-1 text-xs rounded text-matrix-dim" data-cursor="hover">productivity</span>
+          <span class="tag px-3 py-1 text-xs rounded text-matrix-dim" data-cursor="hover">philosophy</span>
+          <span class="tag px-3 py-1 text-xs rounded text-matrix-dim" data-cursor="hover">side-projects</span>
+        </div>
+      </header>
+
+      <!-- Divider -->
+      <div class="h-px bg-gradient-to-r from-transparent via-matrix/30 to-transparent mb-12"></div>
+
+      <!-- Content -->
+      <div class="article-content text-white/80">
+        <p>
+          If you are not living under a rock, you are probably aware of what's happening recently. LLMs significantly got better compared to what they were a couple of years ago.
+        </p>
+
+        <p>
+          Some people are worried. Some people think they are amazing. Some people argue they can never replace human level software engineering. There's a lot of discussion about what will happen in future.
+        </p>
+
+        <p>
+          Not much about <strong>now and the past.</strong>
+        </p>
+
+        <p>
+          
+        </p>
+
+        <h2>// the past</h2>
+
+        <p>
+          I was lucky enough to go through my Bachelor's when they weren't a thing.
+        </p>
+
+        <p>
+          Yeah, I was <strong>lucky enough.</strong> I thought learning all these was impossible. It was very hard. I even talked to some of the teaching staff on my first term. I was worried this isn't meant for me. Maybe I should change my profession.
+        </p>
+
+        <p>
+          Then I started to embrace the pain that comes with it. Second term was very different. I used to scroll through stack overflow for hours, try to visualize what happens under the hood each time I wrote a line. I would read docs to understand what each call is doing under the hood.
+        </p>
+
+        <p>
+          I can't imagine a tool doing my homeworks at that time. I would have probably <strong>learned nothing</strong>.
+        </p>
+
+        <p>
+          Learning in its essence to me is not magic, it requires trial and error, thinking you are stupid and not enough sometimes, forcing yourself to explore more for the pursuit of finding yourself. It's valuable.
+        </p>
+
+        <h2>// the recent past</h2>
+
+        <p>
+          Upon my graduation, I kind of could smell what LLMs are likely to become. They would become exponentially better at:
+        </p>
+
+        <ul>
+          <li>Problems solved over and over</li>
+          <li>Generic work</li>
+          <li>Problems where the ideal solution exists, or very easy to estimate the ideal</li>
+        </ul>
+
+        <p>
+          I needed to explore areas where these were un-ticked mostly. I got my first job at an HFT firm, and I hoped for a senior hire. That didn't happen.
+        </p>
+
+        <p>
+          Then, I realized, I had to optimize the latest tools to tutor and mentor myself. At that time, I had a <strong> "super Google" </strong> that has a lot of mistakes. I kept asking more questions. Instead of wondering around aimlessly, I made learning easier for myself.
+        </p>
+
+        <p>
+          If LLMs weren't there, I would probably waste 6 months for 1 month of knowledge in the past. I worked in finance sector for nearly 10 months. At one point hit the realization, I could do this on my own now. It's not like there's a <strong>JP Morgan</strong> in Turkey, they try to do HFT in Python for gods' sake.
+        </p>
+
+        <p>
+          That's where I quit. 
+        </p>
+
+        <h2>// the very recent past</h2>
+
+        <p>
+          Artificial intelligence was one of the reasons I chose this major. Not because I was "reading papers" as a highschooler, or reading stories about "YC companies". I just loved the TV show <strong>Westworld</strong>. I took a job at a company founded by some of the teaching staff from the university I graduated from.
+        </p>
+
+        <ul>
+          <li><strong>Walk away</strong> when you've learned what you came to learn</li>
+          <li><strong>Walk away</strong> when the excitement is gone and there's no external accountability</li>
+          <li><strong>Push through</strong> when you're past the "hard middle" and can see the end</li>
+          <li><strong>Push through</strong> when someone else is depending on it</li>
+          <li><strong>Push through</strong> when completing it would unlock new opportunities</li>
+        </ul>
+
+        <p>
+          The key is being honest with yourself about which category you're in.
+        </p>
+
+        <h2>// the ones that matter</h2>
+
+        <p>
+          Not everything should be abandoned. Some projects deserve your full commitment. These are the ones where:
+        </p>
+
+        <ul>
+          <li>The problem genuinely matters to you</li>
+          <li>You're building something you'll actually use</li>
+          <li>Completion would meaningfully change your trajectory</li>
+        </ul>
+
+        <p>
+          For these, yes—push through the boring parts. Grind through the bugs. Ship it even when it's not perfect. Because the lessons from finishing are different from the lessons from exploring.
+        </p>
+
+        <h2>// embrace the graveyard</h2>
+
+        <p>
+          So here's my advice: stop feeling guilty about your unfinished projects. They're not failures. They're <strong>research</strong>. They're reconnaissance missions into territory you might revisit someday—or might not.
+        </p>
+
+        <p>
+          The developer with a graveyard of side projects is a developer who has been curious, who has explored, who has followed their interests wherever they led. That's not a bug. That's a feature.
+        </p>
+
+        <p>
+          Now if you'll excuse me, I have another side project to start.
+        </p>
+
+        <p class="text-white/40 text-sm mt-12">
+          // this post was finished, which means it passed my heuristic. barely.
+        </p>
+      </div>
+
+      <!-- Footer divider -->
+      <div class="h-px bg-gradient-to-r from-transparent via-matrix/30 to-transparent my-12"></div>
+
+      <!-- Post footer -->
+      <footer class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full border border-matrix/30 flex items-center justify-center">
+            <svg width="24" height="12" viewBox="0 0 80 40">
+              <path d="M 40 20 C 40 8, 28 4, 18 10 C 8 16, 8 28, 18 32 C 28 36, 38 28, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/>
+              <path d="M 40 20 C 40 32, 52 36, 62 30 C 72 24, 72 12, 62 8 C 52 4, 42 12, 40 20" fill="none" stroke="#00ff41" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="14" cy="12" r="3" fill="#00ff41"/><circle cx="66" cy="28" r="3" fill="#00ff41"/>
+            </svg>
+          </div>
+          <div>
+            <p class="text-white font-medium">pelin avsar</p>
+            <p class="text-white/40 text-sm">software engineer · TU Berlin</p>
+          </div>
+        </div>
+
+        <a href="../index.html#blog" class="hover-line text-matrix-dim hover:text-matrix transition-colors flex items-center gap-2" data-cursor="hover">
+          <span>more posts</span>
+          <span>→</span>
+        </a>
+      </footer>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="border-t border-matrix/10 py-8 px-6">
+    <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/30">
+      <p>© 2026</p>
+      <p>built with <span class="text-matrix">claude</span> and <span class="text-matrix">taste</span></p>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.querySelector('.cursor');
+    const cursorDot = document.querySelector('.cursor-dot');
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = mouseX - 2 + 'px';
+      cursorDot.style.top = mouseY - 2 + 'px';
+    });
+
+    function animateCursor() {
+      cursorX += (mouseX - cursorX) * 0.15;
+      cursorY += (mouseY - cursorY) * 0.15;
+      cursor.style.left = cursorX - 10 + 'px';
+      cursor.style.top = cursorY - 10 + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('[data-cursor="hover"]').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+  </script>
+</body>
+</html>
